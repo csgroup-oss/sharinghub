@@ -1,0 +1,92 @@
+config: |-
+  gitlab:
+    url: https://gitlab.cnes.fr
+
+  jupyterlab:
+    url: https://jupyterhub.cnes.fr
+
+  stac:
+    projects:
+      cache-timeout: 30
+    search:
+      cache-timeout: 20
+    root:
+      id: root
+      title: PLUTO by SharingHub
+      description: PLUTO is your new CNES catalog of libraries and datasets. This catalog references libraries developed in-house and hosted on the [GitLab](https://gitlab.cnes.fr), as well as the main (Open-Source) libraries used in the field of earth observation.
+      locales:
+        fr:
+          title: PLUTO by SharingHub
+          description: PLUTO est votre nouveau catalogue de valorisation des librairies et dataset au CNES. Ce catalogue référence les librairies développée en interne et hébergées sur le [GitLab](https://gitlab.cnes.fr), ainsi que les principales librairies (Open-Source) utilisées dans le domaine de l'observation de la terre.
+    categories:
+      definitions:
+        processor:
+          title: Tools and libraries
+          description: We list tools and libraries that can make your life easier in the development of your models, or their use.
+          gitlab_topic: sharinghub:processor
+          logo: https://data.web.p2.csgroup.space/sharinghub/processor.jpg
+          icon: https://img.icons8.com/pulsar-line/48/maintenance.png
+          locales:
+            fr:
+              title: Outils et librairies
+              description: Nous répertorions des outils et librairies pouvant vous faciliter la vie dans le développement de vos modèles, ou bien leur utilisation.
+          features:
+            deployment: disable
+            jupyter: disable
+            map-viewer: disable
+            store-s3: disable
+        tutorials:
+          title: Tutorials
+          description: Tutorials explaining step-by-step how to use earth observation data, and how to make the most of the CNES environment.
+          gitlab_topic: sharinghub:tutorials
+          logo: https://data.web.p2.csgroup.space/sharinghub/challenge.jpg
+          icon: https://img.icons8.com/ios/50/mission-of-a-company.png
+          locales:
+            fr:
+              title: Tutoriaux
+              description: Des tutoriaux qui vous expliqueront pas à pas différents scénarios d'exploitation de la donnée d'observation de la terre, tout en décrivant comment exploiter au mieux l'environnement du CNES.
+          features:
+            deployment: disable
+            jupyter: enable
+            map-viewer: enable
+            store-s3: disable
+        dataset:
+          title: Datasets
+          description: Datasets are very important in the process of training an AI, discover those that we put at your disposal.
+          gitlab_topic: sharinghub:dataset
+          logo: https://data.web.p2.csgroup.space/sharinghub/datasets.jpg
+          icon: https://img.icons8.com/ios/50/data-backup.png
+          locales:
+            fr:
+              title: Jeux de données
+              description: Les jeux de données sont très importants dans le processus de formation d'une IA, découvrez ceux que nous mettons à votre disposition.
+          features:
+            deployment: disable
+            jupyter: disable
+            map-viewer: enable
+            store-s3: enable
+
+image:
+  repository: 643vlk6z.gra7.container-registry.ovh.net/space_applications/sharinghub
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+
+imagePullSecrets:
+  -  name: regcred
+
+ingress:
+  enabled: true
+  className: "nginx"
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+  hosts:
+    - host: sharinghub-cnes.p2.csgroup.space
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls:
+    - secretName: sharinghub-cnes-tls
+      hosts:
+        - sharinghub-cnes.p2.csgroup.space

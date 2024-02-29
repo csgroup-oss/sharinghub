@@ -1,0 +1,9 @@
+[submodule "components/sharinghub-server"]
+	path = components/sharinghub-server
+	url = https://gitlab.si.c-s.fr/space_applications/mlops-services/sharinghub-server.git
+[submodule "components/sharinghub-ui"]
+	path = components/sharinghub-ui
+	url = https://gitlab.si.c-s.fr/space_applications/mlops-services/sharinghub-ui.git
+[submodule "components/sharinghub-docs"]
+	path = components/sharinghub-docs
+	url = https://gitlab.si.c-s.fr/space_applications/mlops-services/sharinghub-docs.git

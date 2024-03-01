@@ -40,13 +40,15 @@ spec:
           volumeMounts:
             {{- if .Values.config }}
             - name: {{ template "sharinghub.fullname" . }}-config
-              mountPath: /home/app/app/config.yaml
+              mountPath: /home/app/config.yaml
               subPath: "config.yaml"
             {{- end }}
             {{- if .Values.extraVolumeMounts }}
             {{- toYaml .Values.extraVolumeMounts | nindent 12 }}
             {{- end }}
           env:
+            - name: CONFIG_PATH
+              value: /home/app/config.yaml
             - name: GITLAB_OAUTH_CLIENT_ID
               valueFrom:
                 secretKeyRef:

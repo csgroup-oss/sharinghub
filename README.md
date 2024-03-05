@@ -40,6 +40,21 @@ git submodule update
 
 ## Development
 
+Python 3.11 required.
+
+Setup the environment:
+
+```bash
+python -mvenv .venv
+source .venv/bin/activate
+```
+
+Install the [pre-commit](https://pre-commit.com/) hooks:
+
+```bash
+pre-commit install --install-hooks
+```
+
 The components are in the folder `components/`, and each of them can be locally run for development.
 
 Go to each repository, setup the environment, and run them!

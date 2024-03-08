@@ -8,6 +8,10 @@ FROM ${WEB_UI_IMAGE} as web-ui
 
 FROM ${SERVER_IMAGE}
 
+ARG VERSION=latest
+
+LABEL version=${VERSION}
+
 ENV STATIC_FILES_PATH=/home/app/statics
 
 COPY --from=web-ui /usr/share/nginx/html statics

@@ -1,0 +1,25 @@
+include:
+  - component: gitlab.si.c-s.fr/to-be-continuous/docker/gitlab-ci-docker@5.8.1
+    inputs:
+      build-args: >
+        --build-arg VERSION=$CI_COMMIT_REF_NAME-$CI_COMMIT_SHORT_SHA-$CI_JOB_STARTED_AT
+        --build-arg DOCS_IMAGE=$HARBOR_HOST/$HARBOR_PROJECT/sharinghub-docs:latest
+        --build-arg WEB_UI_IMAGE=$HARBOR_HOST/$HARBOR_PROJECT/sharinghub-ui:latest
+        --build-arg SERVER_IMAGE=$HARBOR_HOST/$HARBOR_PROJECT/sharinghub-server:latest
+      hadolint-disabled: true
+      build-cache-disabled: true
+      healthcheck-disabled: true
+      trivy-disabled: true
+      sbom-disabled: true
+
+stages:
+  - build
+  - test
+  - package-build
+  - package-test
+  - infra
+  - deploy
+  - acceptance
+  - publish
+  - infra-prod
+  - production

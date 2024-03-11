@@ -1,25 +1,40 @@
-include:
-  - component: gitlab.si.c-s.fr/to-be-continuous/docker/gitlab-ci-docker@5.8.1
-    inputs:
-      build-args: >
-        --build-arg VERSION=$CI_COMMIT_REF_NAME-$CI_COMMIT_SHORT_SHA-$CI_JOB_STARTED_AT
-        --build-arg DOCS_IMAGE=$HARBOR_HOST/$HARBOR_PROJECT/sharinghub-docs:latest
-        --build-arg WEB_UI_IMAGE=$HARBOR_HOST/$HARBOR_PROJECT/sharinghub-ui:latest
-        --build-arg SERVER_IMAGE=$HARBOR_HOST/$HARBOR_PROJECT/sharinghub-server:latest
-      hadolint-disabled: true
-      build-cache-disabled: true
-      healthcheck-disabled: true
-      trivy-disabled: true
-      sbom-disabled: true
-
 stages:
-  - build
-  - test
-  - package-build
-  - package-test
-  - infra
   - deploy
-  - acceptance
-  - publish
-  - infra-prod
-  - production
+
+variables:
+  DOCS_IMAGE: $HARBOR_HOST/$HARBOR_PROJECT/sharinghub-docs
+  DOCS_TAG: latest
+  WEB_UI_IMAGE: $HARBOR_HOST/$HARBOR_PROJECT/sharinghub-ui
+  WEB_UI_TAG: latest
+  SERVER_IMAGE: $HARBOR_HOST/$HARBOR_PROJECT/sharinghub-server
+  SERVER_TAG: latest
+
+.get-image-tag: &get-image-tag
+  - >
+    if [ "$CI_COMMIT_BRANCH" == "main" ]; then
+      IMAGE_TAG="latest"
+    else
+      IMAGE_TAG=$CI_COMMIT_REF_SLUG
+    fi
+
+deploy-image:
+  stage: deploy
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  before_script:
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
+  script:
+    - *get-image-tag
+    - /kaniko/executor
+      --context $CI_PROJECT_DIR
+      --dockerfile $CI_PROJECT_DIR/Dockerfile
+      --build-arg VERSION=$CI_COMMIT_REF_NAME-$CI_COMMIT_SHORT_SHA-$CI_JOB_STARTED_AT
+      --build-arg DOCS_IMAGE=$DOCS_IMAGE:$DOCS_TAG
+      --build-arg WEB_UI_IMAGE=$WEB_UI_IMAGE:$WEB_UI_TAG
+      --build-arg SERVER_IMAGE=$SERVER_IMAGE:$SERVER_TAG
+      --destination "$CI_REGISTRY_IMAGE:$IMAGE_TAG"
+  rules:
+    - if: '$CI_COMMIT_BRANCH && $CI_COMMIT_BRANCH == "main"'
+      when: manual
+    - if: '$CI_COMMIT_TAG'

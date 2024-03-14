@@ -49,6 +49,11 @@ spec:
           env:
             - name: CONFIG_PATH
               value: /home/app/config.yaml
+            - name: SESSION_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "sharinghub.fullname" . }}
+                  key: session-secret-key
             - name: GITLAB_OAUTH_CLIENT_ID
               valueFrom:
                 secretKeyRef:

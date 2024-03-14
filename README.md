@@ -127,6 +127,7 @@ The client ID is the application id from of the [configured application](#gitlab
 
 ```bash
 # Install
+kubectl create secret generic sharinghub --from-literal session-secret-key="<uuid>" --namespace sharinghub
 kubectl create secret generic sharinghub-oidc --from-literal client-id="<client-id>" --from-literal client-secret="<client-secret>" --namespace sharinghub
 kubectl create secret generic sharinghub-s3 --from-literal access-key="<access-key>" --from-literal secret-key="<secret-key>" --namespace sharinghub
 
@@ -140,6 +141,7 @@ The default token is documented [here](#default-token).
 
 ```bash
 # Install
+kubectl create secret generic sharinghub-cnes --from-literal session-secret-key="<uuid>" --namespace sharinghub
 kubectl create secret generic sharinghub-cnes-oidc --from-literal default-token="<token>" --namespace sharinghub
 
 # Install & Update

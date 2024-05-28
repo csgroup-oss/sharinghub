@@ -14,8 +14,8 @@
     - [Default token](#default-token)
     - [Deployments](#deployments)
       - [CS SharingHub](#cs-sharinghub)
-      - [CNES SharingHub](#cnes-sharinghub)
 - [Configuration](#configuration)
+- [Copyright and License](#copyright-and-license)
 
 ## Roadmap
 
@@ -89,7 +89,7 @@ docker push 643vlk6z.gra7.container-registry.ovh.net/space_applications/sharingh
 
 #### Robot account
 
-Create a robot account in the harbor interface to access GeoJson Proxy Image
+Create a robot account in the harbor interface to access SharingHub Image
 
 ```bash
 kubectl create namespace sharinghub
@@ -135,19 +135,12 @@ kubectl create secret generic sharinghub-s3 --from-literal access-key="<access-k
 helm upgrade --install -n sharinghub --create-namespace sharinghub ./deploy/helm/sharinghub -f ./deploy/helm/values.yaml
 ```
 
-##### CNES SharingHub
-
-The default token is documented [here](#default-token).
-
-```bash
-# Install
-kubectl create secret generic sharinghub-cnes --from-literal session-secret-key="<uuid>" --namespace sharinghub
-kubectl create secret generic sharinghub-cnes-oidc --from-literal default-token="<token>" --namespace sharinghub
-
-# Install & Update
-helm upgrade --install -n sharinghub --create-namespace sharinghub-cnes ./deploy/helm/sharinghub -f ./deploy/helm/values.cnes.yaml
-```
-
 ## Configuration
 
-Please check the server configuration in its [CONFIGURATION.md](./components/server/CONFIGURATION.md).
+Please check the server configuration in its [CONFIGURATION.md](./components/sharinghub-server/CONFIGURATION.md).
+
+## Copyright and License
+
+Copyright 2024 `CS GROUP - France`
+
+**SharingHub**  is an open source software, distributed under the Apache License 2.0. See the [`LICENSE`](./LICENSE) file for more information.

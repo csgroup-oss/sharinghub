@@ -55,13 +55,6 @@ config: |-
   server:
     allowed-origins:
       - http://localhost:8000
-      - https://sharinghub.web.p2.csgroup.space
-
-  gitlab:
-    url: https://gitlab.si.c-s.fr
-
-  jupyterlab:
-    url: https://nb.p2.csgroup.space
 
   stac:
     projects:

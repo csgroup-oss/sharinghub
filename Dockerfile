@@ -14,5 +14,5 @@ LABEL version=${VERSION}
 
 ENV STATIC_FILES_PATH=/home/app/statics
 
-COPY --from=web-ui /usr/share/nginx/html statics
+COPY --from=web-ui /usr/share/nginx/html statics/ui
 COPY --from=docs /usr/share/nginx/html statics/docs

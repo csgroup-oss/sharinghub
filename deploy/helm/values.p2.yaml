@@ -22,7 +22,7 @@ config: |-
 
   external-urls:
     - name: Docs
-      url: /ui/docs/
+      url: /docs/
       icon: https://img.icons8.com/material-outlined/24/books--v1.png
       locales:
         fr:

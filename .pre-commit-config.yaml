@@ -38,12 +38,3 @@ repos:
       args: [ --disable, MD013, MD033, MD046, -- ]
     - id: markdownlint
       args: [ --disable, MD013, MD033, MD046, -- ]
-
-  - repo: local
-    hooks:
-      - id: copyright-header
-        name: Copyright header
-        files: "^deploy"
-        entry: ./scripts/copyright.py
-        types_or: [ yaml ]
-        language: python

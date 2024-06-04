@@ -1,6 +1,4 @@
-# SharingHub
-
-Copyright 2024 CS GROUP - France, <https://www.csgroup.eu/>
+SharingHub Copyright 2024 CS GROUP - France
 
 This software is distributed under the Apache Software License (ASL) v2.0, see LICENSE
 file or http://www.apache.org/licenses/LICENSE-2.0 for details.
@@ -8,19 +6,11 @@ file or http://www.apache.org/licenses/LICENSE-2.0 for details.
 This software includes code from many other open source projects. See below for details
 about the license of each project.
 
-## The Apache 2.0 License
+================================================================
+The Apache 2.0 License
+================================================================
 
 The following components are provided under the Apache 2.0 License (https://opensource.org/licenses/Apache-2.0).
 See project link for details.
 
-- https://github.com/helm/helm
-
-## The MIT License
-
-The following components are provided under the MIT License (https://opensource.org/licenses/mit).
-See project link for details.
-
-- https://github.com/gitleaks/gitleaks
-- https://github.com/commitizen-tools/commitizen
-- https://github.com/pre-commit/pre-commit
-- https://github.com/igorshubovych/markdownlint-cli
+- Helm: https://github.com/helm/helm

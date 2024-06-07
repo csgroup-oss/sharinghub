@@ -72,6 +72,7 @@ config: |-
             jupyter: enable
             map-viewer: enable
             store-s3: enable
+            mlflow: enable
       - dataset:
           title: Datasets
           description: Datasets are very important in the process of training an AI, discover those that we put at your disposal.
@@ -87,6 +88,7 @@ config: |-
             jupyter: enable
             map-viewer: enable
             store-s3: enable
+            mlflow: disable
       - processor:
           title: Tools and libraries
           description: We list tools and libraries that can make your life easier in the development of your models, or their use.
@@ -102,6 +104,7 @@ config: |-
             jupyter: disable
             map-viewer: disable
             store-s3: disable
+            mlflow: disable
       - challenge:
           title: Challenges
           description: Challenges may be offered to you here. Put yourself to the test!
@@ -117,6 +120,7 @@ config: |-
             jupyter: enable
             map-viewer: enable
             store-s3: disable
+            mlflow: disable
 
   tags:
     gitlab:

@@ -132,7 +132,7 @@ kubectl create secret generic sharinghub-oidc --from-literal client-id="<client-
 kubectl create secret generic sharinghub-s3 --from-literal access-key="<access-key>" --from-literal secret-key="<secret-key>" --namespace sharinghub
 
 # Install & Update
-helm upgrade --install -n sharinghub --create-namespace sharinghub ./deploy/helm/sharinghub -f ./deploy/helm/values.yaml
+helm upgrade --install -n sharinghub --create-namespace sharinghub ./deploy/helm/sharinghub -f ./deploy/helm/values.p2.yaml
 ```
 
 ## Configuration

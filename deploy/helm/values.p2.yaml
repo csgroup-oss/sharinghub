@@ -14,19 +14,17 @@ config: |-
   jupyterlab:
     url: https://nb.p2.csgroup.space
 
+  mlflow:
+    url: https://mlflow.p2.csgroup.space
+
+  docs:
+    url: https://sharinghub.p2.csgroup.space/docs
+
   s3:
     enable: true
     bucket: p2-sharinghub
     region: sbg
     endpoint: https://s3.sbg.perf.cloud.ovh.net/
-
-  external-urls:
-    - name: Docs
-      url: /docs/
-      icon: https://img.icons8.com/material-outlined/24/books--v1.png
-      locales:
-        fr:
-          name: Docs
 
   alerts:
     timeout: 3

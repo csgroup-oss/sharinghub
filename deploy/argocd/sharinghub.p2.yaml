@@ -40,6 +40,12 @@ spec:
           docs:
             url: https://sharinghub.p2.csgroup.space/docs
 
+          spaces:
+            streamlit:
+              url: https://kdeployer.p3.csgroup.space/deploy/
+              assets:
+                - streamlit_app.py
+
           s3:
             enable: true
             bucket: p2-sharinghub
@@ -86,7 +92,7 @@ spec:
                       title: Modèles IA
                       description: Les modèles d'IA sont au cœur de notre plateforme, allez les parcourir pour découvrir nos modèles.
                   features:
-                    deployment: enable
+                    deployment-spaces: disable
                     jupyter: enable
                     map-viewer: enable
                     store-s3: enable
@@ -102,7 +108,7 @@ spec:
                       title: Jeux de données
                       description: Les jeux de données sont très importants dans le processus de formation d'une IA, découvrez ceux que nous mettons à votre disposition.
                   features:
-                    deployment: disable
+                    deployment-spaces: disable
                     jupyter: enable
                     map-viewer: enable
                     store-s3: enable
@@ -118,7 +124,7 @@ spec:
                       title: Outils et librairies
                       description: Nous répertorions des outils et librairies pouvant vous faciliter la vie dans le développement de vos modèles, ou bien leur utilisation.
                   features:
-                    deployment: disable
+                    deployment-spaces: disable
                     jupyter: disable
                     map-viewer: disable
                     store-s3: disable
@@ -129,12 +135,15 @@ spec:
                   gitlab_topic: sharinghub:challenge
                   logo: https://data.web.p2.csgroup.space/sharinghub/challenge.jpg
                   icon: https://img.icons8.com/ios/50/mission-of-a-company.png
+                  assets:
+                    - glob: "streamlit_app.py"
+                      title: "Streamlit App"
                   locales:
                     fr:
                       title: Défis
                       description: Des défis pourront vous être proposés ici. Mettez-vous à l'épreuve!
                   features:
-                    deployment: disable
+                    deployment-spaces: enable
                     jupyter: enable
                     map-viewer: enable
                     store-s3: disable

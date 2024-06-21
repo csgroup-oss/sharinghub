@@ -82,15 +82,15 @@ spec:
                   description: Votre plateforme de collaboration sur les projets ML et NLP stockés dans le catalogue STAC de l'instance [GitLab](https://gitlab.si.c-s.fr).
             categories:
               - ai-model:
-                  title: AI Models
-                  description: AI models are the core of our platform, go and browse them to discover our models.
+                  title: "AI Models"
+                  description: "AI models are the core of our platform, go and browse them to discover our models."
                   gitlab_topic: sharinghub:aimodel
                   logo: https://data.web.p2.csgroup.space/sharinghub/ai-model.jpg
                   icon: https://img.icons8.com/material/24/artificial-intelligence.png
                   locales:
                     fr:
-                      title: Modèles IA
-                      description: Les modèles d'IA sont au cœur de notre plateforme, allez les parcourir pour découvrir nos modèles.
+                      title: "Modèles IA"
+                      description: "Les modèles d'IA sont au cœur de notre plateforme, allez les parcourir pour découvrir nos modèles."
                   features:
                     deployment-spaces: disable
                     jupyter: enable
@@ -98,15 +98,15 @@ spec:
                     store-s3: enable
                     mlflow: enable
               - dataset:
-                  title: Datasets
-                  description: Datasets are very important in the process of training an AI, discover those that we put at your disposal.
+                  title: "Datasets"
+                  description: "Datasets are very important in the process of training an AI, discover those that we put at your disposal."
                   gitlab_topic: sharinghub:dataset
                   logo: https://data.web.p2.csgroup.space/sharinghub/datasets.jpg
                   icon: https://img.icons8.com/ios/50/data-backup.png
                   locales:
                     fr:
-                      title: Jeux de données
-                      description: Les jeux de données sont très importants dans le processus de formation d'une IA, découvrez ceux que nous mettons à votre disposition.
+                      title: "Jeux de données"
+                      description: "Les jeux de données sont très importants dans le processus de formation d'une IA, découvrez ceux que nous mettons à votre disposition."
                   features:
                     deployment-spaces: disable
                     jupyter: enable
@@ -114,14 +114,30 @@ spec:
                     store-s3: enable
                     mlflow: disable
               - processor:
-                  title: Tools and libraries
-                  description: We list tools and libraries that can make your life easier in the development of your models, or their use.
+                  title: "Processors"
+                  description: "A list of useful tools for working with your models."
                   gitlab_topic: sharinghub:processor
                   logo: https://data.web.p2.csgroup.space/sharinghub/processor.jpg
                   icon: https://img.icons8.com/pulsar-line/48/maintenance.png
                   locales:
                     fr:
-                      title: Outils et librairies
+                      title: "Processeurs"
+                      description: "Une liste d'outils directement utiles pour travailler avec vos modèles."
+                  features:
+                    deployment-spaces: disable
+                    jupyter: disable
+                    map-viewer: disable
+                    store-s3: disable
+                    mlflow: disable
+              - tools:
+                  title: "Tools/Libraries"
+                  description: "We list tools and libraries that can make your life easier in the development of your models, or their use."
+                  gitlab_topic: sharinghub:tools
+                  logo: https://data.web.p2.csgroup.space/sharinghub/tools.jpg
+                  icon: https://img.icons8.com/pulsar-line/48/full-tool-storage-box-.png
+                  locales:
+                    fr:
+                      title: Outils/Librairies
                       description: Nous répertorions des outils et librairies pouvant vous faciliter la vie dans le développement de vos modèles, ou bien leur utilisation.
                   features:
                     deployment-spaces: disable
@@ -129,23 +145,23 @@ spec:
                     map-viewer: disable
                     store-s3: disable
                     mlflow: disable
-              - challenge:
-                  title: Challenges
-                  description: Challenges may be offered to you here. Put yourself to the test!
-                  gitlab_topic: sharinghub:challenge
-                  logo: https://data.web.p2.csgroup.space/sharinghub/challenge.jpg
-                  icon: https://img.icons8.com/ios/50/mission-of-a-company.png
+              - dashboard:
+                  title: "Dashboards"
+                  description: "Try using models with dashboards, for a visual and intuitive demonstration!"
+                  gitlab_topic: sharinghub:space
+                  logo: https://data.web.p2.csgroup.space/sharinghub/space.jpg
+                  icon: https://img.icons8.com/pulsar-line/48/run-command.png
                   assets:
                     - glob: "streamlit_app.py"
                       title: "Streamlit App"
                   locales:
                     fr:
-                      title: Défis
-                      description: Des défis pourront vous être proposés ici. Mettez-vous à l'épreuve!
+                      title: "Dashboards"
+                      description: "Essayez d'utiliser des modèles avec les dashboards, pour une demonstration visuelle et intuitive !"
                   features:
                     deployment-spaces: enable
                     jupyter: enable
-                    map-viewer: enable
+                    map-viewer: disable
                     store-s3: disable
                     mlflow: disable
 
@@ -158,30 +174,33 @@ spec:
                   - ai-model
                   - dataset
                   - processor
-                  - challenge
+                  - tools
+                  - dashboard
                 keywords:
                   - "Image qualification"
                   - "Object detection"
                   - "Image segmentation"
                   - "Mask generation"
               - name: "Multimodal"
-                enabled_for:
-                  - ai-model
-                  - dataset
-                  - processor
                 keywords:
                   - "Feature Extraction"
                   - "Text-to-Image"
                   - "Image-to-3D"
                   - "Text-to-3D"
-              - name: "Tabular"
                 enabled_for:
                   - ai-model
                   - dataset
                   - processor
+                  - dashboard
+              - name: "Tabular"
                 keywords:
                   - "Tabular Classification"
                   - "Tabular Regression"
+                enabled_for:
+                  - ai-model
+                  - dataset
+                  - processor
+                  - dashboard
 
         image:
           repository: 643vlk6z.gra7.container-registry.ovh.net/space_applications/sharinghub

@@ -1,7 +1,7 @@
 # See https://pre-commit.com for more information
 # See https://pre-commit.com/hooks.html for more hooks
 default_stages: [commit]
-default_install_hook_types: [pre-commit, commit-msg, pre-push]
+default_install_hook_types: [pre-commit, commit-msg]
 default_language_version:
   python: python3
 
@@ -27,9 +27,6 @@ repos:
     rev: v3.16.0
     hooks:
       - id: commitizen
-      - id: commitizen-branch
-        args: [ --rev-range, origin/main..HEAD ]
-        stages: [push]
 
   - repo: https://github.com/igorshubovych/markdownlint-cli
     rev: v0.39.0

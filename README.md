@@ -2,7 +2,6 @@
 
 ## Table of contents
 
-- [Roadmap](#roadmap)
 - [Setup](#setup)
 - [Development](#development)
 - [Production](#production)
@@ -16,18 +15,6 @@
       - [CS SharingHub](#cs-sharinghub)
 - [Configuration](#configuration)
 - [Copyright and License](#copyright-and-license)
-
-## Roadmap
-
-The goal here is to establish a plan on the developments of SharingHub, with the different requirements for each release.
-
-- **Release v0.1.0 (v0.1.X): MVP**
-
-  The goal of this release is to implement the minimum set of features to have a functioning and cohesive platform. This version could be used for demonstrations and deployed as such, independently from the development one. Fixes can be added, but no new features implemented. Milestone [here](https://gitlab.si.c-s.fr/groups/space_applications/mlops-services/-/boards?milestone_title=v0.1.0).
-
-- **Release v1.0.0 (v1.X.Y): Industrialized, first stable**
-
-  After the v0.1.0, we will work on the industrialization of the SharingHub. It is important to refactor and improve the software architecture to create a robust base for future developments. We will also add here the QA tools and create the CI/CD pipelines. Small new features and bug fixes can be added after, as long as they do not overstep on the boundaries of the next release. Milestone [here](https://gitlab.si.c-s.fr/groups/space_applications/mlops-services/-/boards?milestone_title=v1.0.0).
 
 ## Setup
 
@@ -104,7 +91,7 @@ Configure an application in the GitLab instance for OpenID connect authenticatio
 Callback URLs example:
 
 ```txt
-http://localhost:8000/auth/login/callback
+http://localhost:8000/api/auth/login/callback
 <deployment-url>/api/auth/login/callback
 ```
 
@@ -128,7 +115,12 @@ The client ID is the application id from of the [configured application](#gitlab
 ```bash
 # Install
 kubectl create secret generic sharinghub --from-literal session-secret-key="<uuid>" --namespace sharinghub
+
+# if default token
+kubectl create secret generic sharinghub-oidc  --from-literal default-token="<default-token>" --from-literal client-id="<client-id>" --from-literal client-secret="<client-secret>" --namespace sharinghub
+# else
 kubectl create secret generic sharinghub-oidc --from-literal client-id="<client-id>" --from-literal client-secret="<client-secret>" --namespace sharinghub
+
 kubectl create secret generic sharinghub-s3 --from-literal access-key="<access-key>" --from-literal secret-key="<secret-key>" --namespace sharinghub
 
 # Install & Update

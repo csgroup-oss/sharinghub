@@ -1,7 +1,13 @@
 # SharingHub
 
+SharingHub is a web application offering collaborative services useful to developers or data scientists
+working in the fields of AI and earth observation. It offers tools for managing datasets,
+AI models and associated tools. Inspired by the HuggingFace platform, SharingHub brings the management
+dimension of geographic information, and is deployable on top of any GitLab instance.
+
 ## Table of contents
 
+- [Architecture](#architecture)
 - [Development](#development)
 - [Production](#production)
   - [Build image](#build-image)
@@ -13,6 +19,18 @@
     - [Create a S3 bucket](#create-a-s3-bucket)
   - [Configure the server](#configure-the-server)
 - [Copyright and License](#copyright-and-license)
+
+## Architecture
+
+The SharingHub is made of 3 components:
+
+- [sharinghub-server](https://github.com/csgroup-oss/sharinghub-server): backend server with the API implementation.
+  Can be requested from the web portal and compatible clients.
+- [sharinghub-ui](https://github.com/csgroup-oss/sharinghub-ui): web portal, main entry-point for the users.
+- [sharinghub-docs](https://github.com/csgroup-oss/sharinghub-docs): end-user documentation.
+
+This repository is used to assemble these components as a single container image. Furthermore, you can find in
+[Production](#production) the necessary steps to deploy, as well as the deployment resources (Helm charts under `deploy/helm`).
 
 ## Development
 

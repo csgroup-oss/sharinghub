@@ -96,7 +96,7 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
         {{- if .Values.config }}
-        - name:  {{ template "sharinghub.fullname" . }}-config
+        - name: {{ template "sharinghub.fullname" . }}-config
           configMap:
             name: {{ template "sharinghub.fullname" . }}-config
         {{- end }}

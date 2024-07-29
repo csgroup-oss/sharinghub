@@ -5,10 +5,9 @@
 replicaCount: 1
 
 image:
-  repository: 643vlk6z.gra7.container-registry.ovh.net/space_applications/sharinghub
+  repository: sharinghub
   pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: "latest"
 
 imagePullSecrets: []
 nameOverride: ""

@@ -8,16 +8,17 @@ dimension of geographic information, and is deployable on top of any GitLab inst
 ## Table of contents
 
 - [Architecture](#architecture)
-- [Development](#development)
-- [Production](#production)
-  - [Build image](#build-image)
-  - [Push image](#push-image)
-  - [Deployment guide](#deployment-guide)
-    - [Create a robot account](#create-a-robot-account)
-    - [Create a secret key](#create-a-secret-key)
-    - [Configure a Gitlab Application for authentication](#configure-a-gitlab-application-for-authentication)
-    - [Create a S3 bucket](#create-a-s3-bucket)
+- [Getting started](#getting-started)
+- [Deployment guide](#deployment-guide)
+  - [Docker image](#docker-image)
+    - [Build image](#build-image)
+    - [Push image](#push-image)
+  - [Create a robot account](#create-a-robot-account)
+  - [Create a secret key](#create-a-secret-key)
+  - [Configure a Gitlab Application for authentication](#configure-a-gitlab-application-for-authentication)
   - [Configure the server](#configure-the-server)
+  - [Options](#options)
+    - [Create a S3 bucket](#create-a-s3-bucket)
 - [Copyright and License](#copyright-and-license)
 
 ## Architecture
@@ -30,9 +31,9 @@ The SharingHub is made of 3 components:
 - [sharinghub-docs](https://github.com/csgroup-oss/sharinghub-docs): end-user documentation.
 
 This repository is used to assemble these components as a single container image. Furthermore, you can find in
-[Production](#production) the necessary steps to deploy, as well as the deployment resources (Helm charts under `deploy/helm`).
+[Deployment guide](#deployment-guide) the necessary steps to deploy, as well as the deployment resources (Helm charts under `deploy/helm`).
 
-## Development
+## Getting started
 
 Python 3.11 required.
 
@@ -49,45 +50,45 @@ Install the [pre-commit](https://pre-commit.com/) hooks:
 pre-commit install --install-hooks
 ```
 
-## Production
-
-### Build image
-
-You must first build the images of each components:
+Follow the instructions in each component `README.md`:
 
 - `sharinghub-server`
 - `sharinghub-ui`
 - `sharinghub-docs`
 
-Each component describes its build steps in their own `README.md`.
+## Deployment guide
+
+### Docker image
+
+#### Build image
+
+You must first build the images of each components. Each of them describes its build steps in their own `README.md`.
 
 We assemble these images as one image, the `sharinghub` image:
 
 ```bash
-docker build . -t 643vlk6z.gra7.container-registry.ovh.net/space_applications/sharinghub:latest
+docker build . -t <docker-registry>/sharinghub:latest
 ```
 
-### Push image
+#### Push image
 
 You can now push the final image:
 
 ```bash
-docker push 643vlk6z.gra7.container-registry.ovh.net/space_applications/sharinghub:latest
+docker push <docker-registry>/sharinghub:latest
 ```
 
-### Deployment guide
+### Create a robot account
 
-#### Create a robot account
-
-Create a robot account in the harbor interface to access an image.
+Create a robot account in the docker registry to access the image.
 
 ```bash
 kubectl create namespace sharinghub
 
-kubectl create secret docker-registry regcred --docker-username='<robot_username>' --docker-password='<robot_password>' --docker-server='643vlk6z.gra7.container-registry.ovh.net' --namespace sharinghub
+kubectl create secret docker-registry regcred --docker-username='<robot-username>' --docker-password='<robot-password>' --docker-server='<docker-registry>' --namespace sharinghub
 ```
 
-#### Create a secret key
+### Create a secret key
 
 The server needs a secret key for security purposes, create the secret:
 
@@ -95,7 +96,7 @@ The server needs a secret key for security purposes, create the secret:
 kubectl create secret generic sharinghub --from-literal session-secret-key="<uuid>" --namespace sharinghub
 ```
 
-#### Configure a Gitlab Application for authentication
+### Configure a Gitlab Application for authentication
 
 You will need to create an application in your Gitlab instance in order to use SharingHub.
 
@@ -105,7 +106,7 @@ Callback URLs example:
 
 ```txt
 http://localhost:8000/api/auth/login/callback
-https://sharinghub.<domain_name>/api/auth/login/callback
+https://sharinghub.<domain-name>/api/auth/login/callback
 ```
 
 > Note: localhost URL is for development purposes, if you don't want it you can remove it.
@@ -126,18 +127,6 @@ The secret creation will look like this:
 kubectl create secret generic sharinghub-oidc  --from-literal default-token="<default-token>" --from-literal client-id="<client-id>" --from-literal client-secret="<client-secret>" --namespace sharinghub
 ```
 
-#### Create a S3 bucket
-
-You can use a S3 bucket to store your datasets
-
-If you chose to use one, you need to create a s3 bucket in your provider and create the associated secret:
-
-```bash
-kubectl create secret generic sharinghub-s3 --from-literal access-key="<access-key>" --from-literal secret-key="<secret-key>" --namespace sharinghub
-```
-
-For more detail about S3 configuration you can check [this](https://github.com/csgroup-oss/sharinghub-server/blob/main/CONFIGURATION.md#s3).
-
 ### Configure the server
 
 You're almost there. The last step is to create your own configuration. The default one in the charts is not ready-to-use out of the box.
@@ -149,7 +138,7 @@ config: |-
   # yaml config here
 
 image:
-  repository: 643vlk6z.gra7.container-registry.ovh.net/space_applications/sharinghub
+  repository: <docker-registry>/sharinghub
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
@@ -165,17 +154,17 @@ ingress:
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/proxy-body-size: 10g
   hosts:
-    - host: sharinghub.<domain_name>
+    - host: sharinghub.<domain-name>
       paths:
         - path: /
           pathType: ImplementationSpecific
   tls:
     - secretName: sharinghub-tls
       hosts:
-        - sharinghub.<domain_name>
+        - sharinghub.<domain-name>
 ```
 
-Complete the values, replace `<domain_name>` with your target domain, and configure the server. Please check the server configuration in the file `CONFIGURATION.md` of the SharingHub server repository.
+Complete the values, replace `<domain-name>` with your target domain, and configure the server. Please check the server configuration in the file `CONFIGURATION.md` of the SharingHub server repository.
 
 When all is done, install/update your deployment:
 
@@ -183,6 +172,20 @@ When all is done, install/update your deployment:
 # Install & Update
 helm upgrade --install -n sharinghub --create-namespace sharinghub ./deploy/helm/sharinghub -f ./deploy/helm/values.<platform>.yaml
 ```
+
+### Options
+
+#### Create a S3 bucket
+
+You can use a S3 bucket to store your datasets.
+
+If you chose to use one, you need to create a s3 bucket in your provider and create the associated secret:
+
+```bash
+kubectl create secret generic sharinghub-s3 --from-literal access-key="<access-key>" --from-literal secret-key="<secret-key>" --namespace sharinghub
+```
+
+For more detail about S3 configuration you can check [this](https://github.com/csgroup-oss/sharinghub-server/blob/main/CONFIGURATION.md#s3).
 
 ## Copyright and License
 

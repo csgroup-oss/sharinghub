@@ -175,7 +175,7 @@ ingress:
         - sharinghub.<domain_name>
 ```
 
-Complete the values, replace `<domain_name>` with your target domain, and configure the server. Please check the server configuration in the file `CONFIGURATION.md` of the SharingHub serer repository.
+Complete the values, replace `<domain_name>` with your target domain, and configure the server. Please check the server configuration in the file `CONFIGURATION.md` of the SharingHub server repository.
 
 When all is done, install/update your deployment:
 

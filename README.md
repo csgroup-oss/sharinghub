@@ -111,7 +111,7 @@ https://sharinghub.<domain-name>/api/auth/login/callback
 
 > Note: localhost URL is for development purposes, if you don't want it you can remove it.
 
-![Configure application](./assets/configure-application.png)
+![Configure application](./docs/assets/configure-application.png)
 
 You will be given a secret, and an application id, we will use them to create the following secret:
 

@@ -35,6 +35,14 @@ securityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
 
+# https://github.com/csgroup-oss/sharinghub-server/blob/main/resources/gunicorn.conf.py
+gunicorn:
+  bind: # ref: https://docs.gunicorn.org/en/stable/settings.html#bind
+  workers: # ref: https://docs.gunicorn.org/en/stable/settings.html#workers
+  worker_class: # ref: https://docs.gunicorn.org/en/stable/settings.html#worker-class
+  worker_connections: # ref: https://docs.gunicorn.org/en/stable/settings.html#worker-connections
+  timeout: # ref: https://docs.gunicorn.org/en/stable/settings.html#timeout
+
 config: |-
   server:
     allowed-origins:

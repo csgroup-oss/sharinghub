@@ -84,6 +84,26 @@ spec:
                   name: {{ template "sharinghub.fullname" . }}-s3
                   key: secret-key
                   optional: true
+            {{- if .Values.gunicorn.bind }}
+            - name: GUNICORN_BIND
+              value: {{ .Values.gunicorn.bind | quote }}
+            {{- end }}
+            {{- if .Values.gunicorn.workers }}
+            - name: GUNICORN_WORKERS
+              value: {{ .Values.gunicorn.workers | quote }}
+            {{- end }}
+            {{- if .Values.gunicorn.worker_class }}
+            - name: GUNICORN_WORKER_CLASS
+              value: {{ .Values.gunicorn.worker_class | quote }}
+            {{- end }}
+            {{- if .Values.gunicorn.worker_connections }}
+            - name: GUNICORN_WORKER_CONNECTIONS
+              value: {{ .Values.gunicorn.worker_connections | quote }}
+            {{- end }}
+            {{- if .Values.gunicorn.timeout }}
+            - name: GUNICORN_TIMEOUT
+              value: {{ .Values.gunicorn.timeout | quote }}
+            {{- end }}
           livenessProbe:
             httpGet:
               path: /

@@ -51,11 +51,18 @@ jobs:
           registry: ${{ vars.IMAGE_REGISTRY }}
           username: ${{ secrets.REGISTRY_USER }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
+      - name: Login with Docker Hub (EOEPCA)
+        uses: docker/login-action@v3
+        with:
+          username: ${{ vars.EOEPCA_DOCKERHUB_USER }}
+          password: ${{ secrets.EOEPCA_DOCKERHUB_TOKEN }}
       - name: Extract metadata
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ vars.IMAGE_REPOSITORY }}/${{ env.IMAGE_NAME }}
+          images: |
+            ${{ vars.IMAGE_REPOSITORY }}/${{ env.IMAGE_NAME }}
+            eoepca/${{ env.IMAGE_NAME }}
           tags: |
             # set image tag
             type=raw,value=${{ env.IMAGE_TAG }}

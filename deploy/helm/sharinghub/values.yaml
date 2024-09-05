@@ -51,8 +51,6 @@ config: |-
   stac:
     projects:
       cache-timeout: 300
-    search:
-      cache-timeout: 180
     root:
       id: gitlab
       title: GitLab

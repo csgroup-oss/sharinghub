@@ -7,7 +7,6 @@ replicaCount: 1
 image:
   repository: sharinghub
   pullPolicy: IfNotPresent
-  tag: "latest"
 
 imagePullSecrets: []
 nameOverride: ""

@@ -2,9 +2,9 @@ ARG DOCS_IMAGE=sharinghub-docs:latest
 ARG WEB_UI_IMAGE=sharinghub-ui:latest
 ARG SERVER_IMAGE=sharinghub-server:latest
 
-FROM ${DOCS_IMAGE} as docs
+FROM ${DOCS_IMAGE} AS docs
 
-FROM ${WEB_UI_IMAGE} as web-ui
+FROM ${WEB_UI_IMAGE} AS web-ui
 
 FROM ${SERVER_IMAGE}
 

@@ -12,7 +12,13 @@ ARG VERSION=latest
 
 LABEL version=${VERSION}
 
-ENV STATIC_FILES_PATH=/home/app/statics
+ENV STATIC_FILES_PATH=/var/www/sharinghub
 
-COPY --from=web-ui /usr/share/nginx/html statics/ui
-COPY --from=docs /usr/share/nginx/html statics/docs
+USER root
+
+RUN mkdir -p ${STATIC_FILES_PATH}
+
+COPY --from=web-ui /usr/share/nginx/html ${STATIC_FILES_PATH}/ui
+COPY --from=docs /usr/share/nginx/html ${STATIC_FILES_PATH}/docs
+
+USER app

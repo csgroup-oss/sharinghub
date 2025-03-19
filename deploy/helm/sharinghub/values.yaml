@@ -43,13 +43,22 @@ gunicorn:
   timeout: # ref: https://docs.gunicorn.org/en/stable/settings.html#timeout
 
 config: |-
-  server:
-    allowed-origins:
-      - http://localhost:8000
+  gitlab:
+    url: https://gitlab.com
+
+  docs:
+    url: /docs
+
+  services:
+    store:
+      mode: null
 
   stac:
-    projects:
-      cache-timeout: 300
+    extensions:
+      eo: https://stac-extensions.github.io/eo/v1.1.0/schema.json
+      label: https://stac-extensions.github.io/label/v1.0.1/schema.json
+      sci: https://stac-extensions.github.io/scientific/v1.0.0/schema.json
+      ml-model: https://stac-extensions.github.io/ml-model/v1.0.0/schema.json
     root:
       id: gitlab
       title: GitLab
@@ -58,12 +67,57 @@ config: |-
         fr:
           title: GitLab
           description: Votre plateforme de collaboration sur Gitlab.
+    categories:
+      - ai-model:
+          title: "AI Models"
+          description: "AI models are the core of our platform, go and browse them to discover our models."
+          gitlab_topic: sharinghub:aimodel
+          logo: https://data.web.p2.csgroup.space/sharinghub/ai-model.jpg
+          icon: https://img.icons8.com/material/24/artificial-intelligence.png
+          locales:
+            fr:
+              title: "Modèles IA"
+              description: "Les modèles d'IA sont au cœur de notre plateforme, allez les parcourir pour découvrir nos modèles."
+          features:
+            deployment-spaces: disable
+            jupyter: enable
+            map-viewer: enable
+            store-s3: enable
+            mlflow: enable
+      - dataset:
+          title: "Datasets"
+          description: "Datasets are very important in the process of training an AI, discover those that we put at your disposal."
+          gitlab_topic: sharinghub:dataset
+          logo: https://data.web.p2.csgroup.space/sharinghub/datasets.jpg
+          icon: https://img.icons8.com/ios/50/data-backup.png
+          locales:
+            fr:
+              title: "Jeux de données"
+              description: "Les jeux de données sont très importants dans le processus de formation d'une IA, découvrez ceux que nous mettons à votre disposition."
+          features:
+            deployment-spaces: disable
+            jupyter: enable
+            map-viewer: enable
+            store-s3: enable
+            mlflow: disable
 
-    s3:
-      enable: false
-      bucket: gitlab
-      region: ""
-      endpoint: ""
+  alerts:
+    timeout: 3
+    type: info
+    title: "Welcome to SharingHub"
+    message: "To see all projects and unlock all features, please login..."
+    locales:
+      fr:
+        title: "Bienvenue sur le SharingHub"
+        message: "Pour voir tous les projets et débloquer toutes les fonctionnalités, veuillez vous connecter..."
+
+  external-urls:
+    - name: Privacy
+      footer: true
+      url: /docs/legal/privacy/
+      locales:
+        fr:
+          name: Confidentialité
 
 service:
   type: ClusterIP

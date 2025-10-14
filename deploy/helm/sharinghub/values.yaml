@@ -58,7 +58,7 @@ config: |-
       eo: https://stac-extensions.github.io/eo/v1.1.0/schema.json
       label: https://stac-extensions.github.io/label/v1.0.1/schema.json
       sci: https://stac-extensions.github.io/scientific/v1.0.0/schema.json
-      ml-model: https://stac-extensions.github.io/ml-model/v1.0.0/schema.json
+      mlm: https://stac-extensions.github.io/mlm/v1.4.0/schema.json
     root:
       id: gitlab
       title: GitLab
